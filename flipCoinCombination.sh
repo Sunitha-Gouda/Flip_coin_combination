@@ -87,8 +87,8 @@ TH=$(echo | awk '{print '$COUNT_2/$LENGTH_OF_ARRAY*100'}')
 TT=$(echo | awk '{print '$COUNT_3/$LENGTH_OF_ARRAY*100'}')
    echo "Winning Percentage For Doublet Combination  TT = " $TT
 
-Doublet=($HH $HT $TH $TT)
-echo ${Doublet[@]}
+ARRAY_DOUBLET=($HH $HT $TH $TT)
+echo ${ARRAY_DOUBLET[@]}
 
 #Flip coin for Triplet combination
 
@@ -153,5 +153,45 @@ THT=$(echo | awk '{print '$COUNT_10/$LENGTH_ARRAYT*100'}')
 HTT=$(echo | awk '{print '$COUNT_11/$LENGTH_ARRAYT*100'}')
 	echo " Winning Percentage for Triplet Combination HHH " $HTT
 
-Triplet_Array=($HHH $HHT $HTH $THH $HTT $THT $TTH $TTT)
-echo ${Triplet_Array[@]}
+ARRAY_TRIPLET=($HHH $HHT $HTH $THH $HTT $THT $TTH $TTT)
+echo ${ARRAY_TRIPLET[@]}
+
+#Sorting for Doublet combination
+
+echo ${ARRAY_DOUBLET[@]}
+LENGTH_OF_ARRAY=${#ARRAY_DOUBLET[@]}
+for ((i=0; i<$LENGTH_OF_ARRAY; i++ ))
+do
+   for ((j=$(( $i+1 )); j<$LENGTH_OF_ARRAY; j++ ))
+   do
+      if [ ${ARRAY_DOUBLET[i]} -gt ${ARRAY_DOUBLET[j]} ]
+      then
+         temp=${ARRAY_DOUBLET[i]}
+         ARRAY_DOUBLET[$i]=${ARRAY_DOUBLET[j]}
+         ARRAY_DOUBLET[$j]=$temp
+      fi
+   done
+done
+
+#Sorting for Triplet  combination
+
+echo ${ARRAY_TRIPLET[@]}
+LENGTH_OF_ARRAYT=${#ARRAY_TRIPLET[@]}
+for ((i=0; i<$LENGTH_OF_ARRAYT; i++ ))
+do
+   for ((j=$(( $i+1 )); j<$LENGTH_OF_ARRAYT; j++ ))
+   do
+      if [ ${ARRAY_TRIPLET[i]} -gt ${ARRAY_TRIPLET[j]} ]
+      then
+         temp=${ARRAY_TRIPLET[i]}
+         ARRAY_TRIPLET[$i]=${ARRAY_TRIPLET[j]}
+         ARRAY_TRIPLET[$j]=$temp
+      fi
+   done
+done
+
+echo " Winnig combination of SINGLET: " ${ARRAY_SINGLET[@]}
+echo " Winnig combination of DOUBLET: " ${ARRAY_DOUBLET[@]}
+echo " Winnig combination of TRIPLET: " ${ARRAY_TRIPLET[@]}
+
+
